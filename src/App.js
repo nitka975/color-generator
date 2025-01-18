@@ -1,8 +1,18 @@
-import React, {useState} from "react";
+import React, {useState , useEffect} from "react";
+import axios from 'axios';
+import { response } from "express";
 
 function App() {
 
-    const [color, setColor] = useState('#fff')
+    const [color, setColor] = useState('#fff');
+
+
+    const [colorList, setColorList] = useState([]);
+    useEffect(() => {
+      axios.get('http://localhost:5000/colors', {color: randomColor })
+        .then((response) => setColorList(------------------------))
+        .catch((error) => console.error('Ошибка в загрузке цветов',error));
+    }, []);
 
     const generateColor = () => {
       const randomColor = `#${Math.floor(Math.random() * 16999999).toString(16)}`;
@@ -14,6 +24,7 @@ function App() {
       <h1>Color generator</h1>
       <p>This color: {color}</p>
       <button style={{backgroundColor:'#10c7de'}} onClick= {generateColor}>generator color</button>
+      
     </div>
   );
 }
